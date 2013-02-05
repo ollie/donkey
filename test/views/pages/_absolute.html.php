@@ -1,0 +1,1 @@
+<p>Absolute partial.</p>
