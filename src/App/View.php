@@ -11,8 +11,8 @@ class View
   protected $_format;                 # 'html' | 'js' | 'xml' ...
   protected $_incompletePath;         # 'pages/index' ...
   protected $_rootPath;               # 'app/views'
-  protected $_viewPath;               # 'app/views/pages/index' ...
-  protected $_layout = 'application'; # 'application' | null
+  protected $_viewPath;               # 'app/views/pages/index.html.php' ...
+  protected $_layout = 'application'; # 'application' | 'whatever_string' | null
   protected $_layoutPath;             # 'app/views/layouts/application.html.php' ...
 
   public static function formats()
@@ -118,19 +118,10 @@ class View
   public static function underscoreLastItem($path)
   {
     $parts = explode('/', $path);
-    $newParts = array();
+    $last = array_pop($parts);
+    array_push($parts, "_{$last}");
 
-    for ($i = 0, $iMax = count($parts); $i < $iMax; $i++)
-    {
-      if ( ($i + 1) == $iMax )
-        $part = '_' . $parts[$i];
-      else
-        $part = $parts[$i];
-
-      $newParts[$i] = $part;
-    }
-
-    return join('/', $newParts);
+    return join('/', $parts);
   }
 
   protected function read($path)
