@@ -81,13 +81,6 @@ class AppTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'js', $this->app->format() );
   }
 
-  public function testSetParams()
-  {
-    $params = array('key1' => 'value1', 'key2' => 'value2');
-    $this->app->setParams($params);
-    $this->assertEquals( $params, $this->app->params() );
-  }
-
   public function testNamespacesToSlashes1()
   {
     $this->assertEquals( 'App/Controller', App\App::namespacesToSlashes('App\\Controller') );

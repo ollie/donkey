@@ -17,6 +17,13 @@ class PagesController extends App\Controller
     $this->setLayout('test');
     $this->render('index');
   }
+
+  public function whatever()
+  {
+    $this->view()->title = 'Awesome Title';
+    $this->setLayout('test');
+    $this->render('index');
+  }
 }
 
 class ControllerTest extends PHPUnit_Framework_TestCase
@@ -39,6 +46,18 @@ class ControllerTest extends PHPUnit_Framework_TestCase
   public function testNameToPath()
   {
     $this->assertEquals( 'pages', $this->controller->nameToPath() );
+  }
+
+  public function testViewIsCreatedOnNew()
+  {
+    $this->assertTrue( $this->controller->view() instanceof App\View );
+  }
+
+  public function testSetParams()
+  {
+    $params = array('key1' => 'value1', 'key2' => 'value2');
+    $this->controller->setParams($params);
+    $this->assertEquals( $params, $this->controller->params() );
   }
 
   public function testIndex()
@@ -83,6 +102,17 @@ class ControllerTest extends PHPUnit_Framework_TestCase
     $view = $this->controller->view();
     $view->setRootPath(ROOT_VIEWS);
     $code = $view->render();
+    $this->assertTrue( $view instanceof App\View );
+    $this->assertEquals( "<h1>Test!</h1>\n<p>Hello!</p>", trim($code) );
+  }
+
+  public function testWhatever()
+  {
+    $this->controller->action('whatever');
+    $view = $this->controller->view();
+    $view->setRootPath(ROOT_VIEWS);
+    $code = $view->render();
+    $this->assertEquals( 'Awesome Title', $view->title );
     $this->assertTrue( $view instanceof App\View );
     $this->assertEquals( "<h1>Test!</h1>\n<p>Hello!</p>", trim($code) );
   }

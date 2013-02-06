@@ -23,9 +23,14 @@ class View
     );
   }
 
-  public function __construct($incompletePath)
+  public function hasIncompletePath()
   {
-    $this->_incompletePath = $incompletePath;
+    return (bool) $this->_incompletePath;
+  }
+
+  public function setIncompletePath($path)
+  {
+    $this->_incompletePath = $path;
   }
 
   public function render($format = null)

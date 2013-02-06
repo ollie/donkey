@@ -5,6 +5,9 @@ set_include_path(implode(PATH_SEPARATOR, array(
   get_include_path(),
 )));
 
+setlocale(LC_ALL, 'cs_CZ.UTF-8');
+date_default_timezone_set('Europe/Prague');
+
 define('ROOT_VIEWS', 'views');
 
 require_once 'App.php';

@@ -4,10 +4,14 @@ namespace App;
 
 class Controller
 {
-  protected $_view;   # View
-  protected $_layout; # string
+  protected $_view; # View
 
-  public function callBeforeActions()
+  public function __construct()
+  {
+    $this->_view = new View;
+  }
+
+  protected function callBeforeActions()
   {
 
   }
@@ -20,24 +24,18 @@ class Controller
     $this->callBeforeActions();
     $this->{$action}();
 
-    if ( !$this->view() )
-      $this->initView($action);
+    if ( !$this->_view->hasIncompletePath() )
+      $this->setViewPath($action);
   }
 
   public function render($action)
   {
-    $this->initView($action);
+    $this->setViewPath($action);
   }
 
-  protected function initView($action)
+  protected function setViewPath($action)
   {
-    $path = $this->nameToPath() . '/' . $action;
-    $view = new View($path);
-
-    if ( !empty($this->_layout) )
-      $view->setLayout($this->_layout);
-
-    $this->setView($view);
+    $this->_view->setIncompletePath( $this->nameToPath() . '/' . $action );
   }
 
   public function name()
@@ -59,18 +57,23 @@ class Controller
     return $underscoredString;
   }
 
+  public function params()
+  {
+    return $this->_params;
+  }
+
+  public function setParams($params = array())
+  {
+    $this->_params = $params;
+  }
+
   public function view()
   {
     return $this->_view;
   }
 
-  public function setView(View $view)
-  {
-    $this->_view = $view;
-  }
-
   public function setLayout($layout)
   {
-    $this->_layout = $layout;
+    $this->_view->setLayout($layout);
   }
 }

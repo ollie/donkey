@@ -108,14 +108,4 @@ class App
   {
     $this->_format = $format;
   }
-
-  public function params()
-  {
-    return $this->_params;
-  }
-
-  public function setParams($params = array())
-  {
-    $this->_params = $params;
-  }
 }
