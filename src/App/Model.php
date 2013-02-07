@@ -14,15 +14,24 @@ abstract class Model
     $this->setAttributes($attributes);
   }
 
-  protected function addAttribute($attribute, $defaultValue)
+  protected function string($attribute)
   {
-    if ( !$this->hasAttribute($attribute) )
-      $this->setAttribute($attribute, $defaultValue);
+    $this->addAttribute($attribute, new Attr\String);
   }
 
-  protected function hasAttribute($attribute)
+  protected function addAttribute($attribute, $defaultValue)
   {
-    return array_key_exists($attribute, $this->_attributes);
+    $this->initAttribute($attribute, $defaultValue);
+  }
+
+  protected function initAttribute($attribute, Attr\Base $value)
+  {
+    $this->_attributes[ $attribute ] = $value;
+  }
+
+  protected function setAttribute($attribute, $value)
+  {
+    $this->_attributes[ $attribute ]->write($value);
   }
 
   public function __get($attribute)
@@ -30,7 +39,7 @@ abstract class Model
     if ( !$this->hasAttribute($attribute) )
       throw new ModelAttributeNotDefinedException("Attribute \"{$attribute}\" not defined.");
 
-    return $this->_attributes[ $attribute ];
+    return $this->_attributes[ $attribute ]->read();
   }
 
   public function setAttributes($attributes)
@@ -47,18 +56,18 @@ abstract class Model
     }
   }
 
-  protected function setAttribute($attribute, $value)
+  protected function hasAttribute($attribute)
   {
-    $this->_attributes[ $attribute ] = $value;
+    return array_key_exists($attribute, $this->_attributes);
   }
 
   public function attributes()
   {
-    return $this->_attributes;
-  }
+    $mappedAttributes = array();
 
-  protected function string($attribute)
-  {
-    $this->addAttribute($attribute, '');
+    foreach ($this->_attributes as $attribute => $valueObject)
+      $mappedAttributes[ $attribute ] = $valueObject->read();
+
+    return $mappedAttributes;
   }
 }

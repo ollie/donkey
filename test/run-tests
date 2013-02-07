@@ -1,15 +1,3 @@
 #!/bin/bash
 
-OPEN_COVERAGE=$1
-
-if [[ -d coverage ]]
-then
-  rm -r coverage
-fi
-
 phpunit -c phpunit.xml
-
-if [[ $OPEN_COVERAGE = "1" && -f coverage/index.html ]]
-then
-  open coverage/index.html
-fi
