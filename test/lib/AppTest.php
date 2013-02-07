@@ -2,8 +2,15 @@
 
 class AppTest extends PHPUnit_Framework_TestCase
 {
+  protected function showErrors()
+  {
+    ini_set('display_errors', true);
+    error_reporting(E_ALL | E_STRICT);
+  }
+
   protected function setUp()
   {
+    $this->showErrors();
     $this->app = new App\App;
   }
 
@@ -96,4 +103,41 @@ class AppTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( 'Some/Very/Long/Class', App\App::namespacesToSlashes('\\Some\\Very\\Long\\Class') );
   }
 
+  public function testSetDevelopment()
+  {
+    $this->app->setDevelopment();
+    $this->assertEquals( 'development', $this->app->env() );
+    $this->assertEquals( '1', ini_get('display_errors') );
+    $this->assertEquals( E_ALL | E_STRICT , error_reporting() );
+  }
+
+  public function testSetTesting()
+  {
+    $this->app->setTesting();
+    $this->assertEquals( 'testing', $this->app->env() );
+    $this->assertEquals( '1', ini_get('display_errors') );
+    $this->assertEquals( E_ALL | E_STRICT , error_reporting() );
+  }
+
+  public function testSetProduction()
+  {
+    $this->app->setProduction();
+    $this->assertEquals( 'production', $this->app->env() );
+    $this->assertEquals( '', ini_get('display_errors') );
+    $this->assertEquals( null , error_reporting() );
+    $this->showErrors();
+  }
+
+  public function testIsDevelopment()
+  {
+    $this->app->setDevelopment();
+    $this->assertTrue( $this->app->isDevelopment() );
+  }
+
+  public function testIsProduction()
+  {
+    $this->app->setProduction();
+    $this->assertTrue( $this->app->isProduction() );
+    $this->showErrors();
+  }
 }

@@ -53,6 +53,16 @@ class App
     error_reporting(null);
   }
 
+  public function isDevelopment()
+  {
+    return $this->_env === 'development';
+  }
+
+  public function isProduction()
+  {
+    return $this->_env === 'production';
+  }
+
   public function env()
   {
     return $this->_env;
