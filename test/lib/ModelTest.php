@@ -11,27 +11,24 @@ class Model extends App\Model
 
 class ModelTest extends PHPUnit_Framework_TestCase
 {
-  public function testModel()
+  protected function setUp()
   {
-    $page = new Model(array(
+    $this->page = new Model(array(
       'title'    => 'Super Title',
       'contents' => "Hey\nHo",
     ));
+  }
 
-    $this->assertEquals( 'Super Title', $page->title );
-    $this->assertEquals( "Hey\nHo", $page->contents );
+  public function testModel()
+  {
+    $this->assertEquals( 'Super Title', $this->page->title );
+    $this->assertEquals( "Hey\nHo", $this->page->contents );
   }
 
   public function testSetAttributes()
   {
-    $page = new Model;
-    $page->setAttributes(array(
-      'title'    => 'Super Title',
-      'contents' => "Hey\nHo",
-    ));
-
-    $this->assertEquals( 'Super Title', $page->title );
-    $this->assertEquals( "Hey\nHo", $page->contents );
+    $this->assertEquals( 'Super Title', $this->page->title );
+    $this->assertEquals( "Hey\nHo", $this->page->contents );
   }
 
   /**
@@ -66,5 +63,15 @@ class ModelTest extends PHPUnit_Framework_TestCase
     $page->setAttributes($attributes);
 
     $this->assertEquals( $attributes, $page->attributes() );
+  }
+
+  public function testIsValid()
+  {
+    $this->assertTrue( $this->page->isValid() );
+  }
+
+  public function testIsInvalid()
+  {
+    $this->assertFalse( $this->page->isInvalid() );
   }
 }

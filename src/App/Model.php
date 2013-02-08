@@ -70,4 +70,19 @@ abstract class Model
 
     return $mappedAttributes;
   }
+
+  public function validate()
+  {
+    return true;
+  }
+
+  public function isValid()
+  {
+    return $this->validate();
+  }
+
+  public function isInvalid()
+  {
+    return ! $this->validate();
+  }
 }
