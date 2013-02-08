@@ -18,5 +18,6 @@ require_once 'Controller.php';
 require_once 'Model.php';
 require_once 'Attr/Base.php';
 require_once 'Attr/String.php';
+require_once 'Mailer.php';
 require_once 'View.php';
 require_once 'Exceptions.php';

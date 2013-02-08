@@ -7,6 +7,7 @@ class App
   protected $_root, $_env, $_url, $_format; # string
   protected $_router;     # Router
   protected $_controller; # Controller
+  protected $_flash = array();
 
   public static function namespacesToSlashes($namespacedString)
   {
@@ -117,5 +118,15 @@ class App
   public function setFormat($format)
   {
     $this->_format = $format;
+  }
+
+  public function flash()
+  {
+    return $this->_flash;
+  }
+
+  public function addFlash($message)
+  {
+    $this->_flash[] = $message;
   }
 }

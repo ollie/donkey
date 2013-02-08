@@ -96,6 +96,24 @@ class ViewTest extends PHPUnit_Framework_TestCase
     $this->assertEquals( "$('a.link');", trim($code) );
   }
 
+  public function testViewPathWithTxtFormat()
+  {
+    $view = new App\View;
+    $view->setRootPath(ROOT_VIEWS);
+    $view->setIncompletePath('pages/index');
+    $code = $view->render('txt');
+    $this->assertEquals( ROOT_VIEWS . '/pages/index.txt.php', $view->path() );
+  }
+
+  public function testViewContentsWithTxtFormat()
+  {
+    $view = new App\View;
+    $view->setRootPath(ROOT_VIEWS);
+    $view->setIncompletePath('pages/index');
+    $code = $view->render('txt');
+    $this->assertEquals( "Hello!", trim($code) );
+  }
+
   public function testViewWithNoLayout()
   {
     $view = new App\View;

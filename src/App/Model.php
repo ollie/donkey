@@ -5,6 +5,7 @@ namespace App;
 abstract class Model
 {
   protected $_attributes = array();
+  protected $_isValid = true;
 
   abstract protected function defineAttributes();
 
@@ -73,7 +74,7 @@ abstract class Model
 
   public function validate()
   {
-    return true;
+    return $this->_isValid;
   }
 
   public function isValid()
@@ -84,5 +85,16 @@ abstract class Model
   public function isInvalid()
   {
     return ! $this->validate();
+  }
+
+  public function error($attribute)
+  {
+    return $this->_attributes[ $attribute ]->error();
+  }
+
+  public function addError($attribute, $message)
+  {
+    $this->_attributes[ $attribute ]->addError($message);
+    $this->_isValid = false;
   }
 }

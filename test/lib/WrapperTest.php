@@ -2,6 +2,11 @@
 
 class WrapperTest extends PHPUnit_Framework_TestCase
 {
+  protected function setUp()
+  {
+    $this->app = new App\App;
+  }
+
   public function testSetInstance()
   {
     $app = new App\App;

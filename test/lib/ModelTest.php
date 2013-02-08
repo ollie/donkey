@@ -74,4 +74,12 @@ class ModelTest extends PHPUnit_Framework_TestCase
   {
     $this->assertFalse( $this->page->isInvalid() );
   }
+
+  public function testAddError()
+  {
+    $this->assertTrue( $this->page->isValid() );
+    $this->page->addError('title', 'Is required.');
+    $this->assertEquals( 'Is required.', $this->page->error('title') );
+    $this->assertTrue( $this->page->isInvalid() );
+  }
 }

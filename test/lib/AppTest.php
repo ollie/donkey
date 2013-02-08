@@ -140,4 +140,18 @@ class AppTest extends PHPUnit_Framework_TestCase
     $this->assertTrue( $this->app->isProduction() );
     $this->showErrors();
   }
+
+  public function testFlash()
+  {
+    $this->assertEquals( array(), $this->app->flash() );
+  }
+
+  public function testAddFlash()
+  {
+    $this->app->addFlash('Oh, Hello!');
+    $this->assertEquals( array('Oh, Hello!'), $this->app->flash() );
+
+    $this->app->addFlash('Hi!');
+    $this->assertEquals( array('Oh, Hello!', 'Hi!'), $this->app->flash() );
+  }
 }

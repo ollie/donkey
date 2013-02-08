@@ -6,6 +6,7 @@ class View
 {
   const HTML_FORMAT    = 'html';
   const JS_FORMAT      = 'js';
+  const TXT_FORMAT     = 'txt';
   const DEFAULT_FORMAT = 'html';
 
   protected $_format;                 # 'html' | 'js' | 'xml' ...
@@ -20,6 +21,7 @@ class View
     return array(
       self::HTML_FORMAT,
       self::JS_FORMAT,
+      self::TXT_FORMAT,
     );
   }
 

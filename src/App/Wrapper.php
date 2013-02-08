@@ -4,7 +4,7 @@ namespace App;
 
 class Wrapper
 {
-  private static $_instance;
+  protected static $_instance;
 
   public static function instance()
   {
