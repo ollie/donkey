@@ -61,10 +61,7 @@ class Mailer
     if ( !empty($this->_from) )
       $headers[] = 'From: ' . $this->_from;
 
-    if ( !empty($this->_to) )
-      $headers[] = 'Bcc: ' . $this->_to;
-
-    $headers = join("\r\n", $headers);
+    $headers = join("\n", $headers);
     return $headers;
   }
 

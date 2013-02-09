@@ -66,7 +66,7 @@ class MailerTest extends PHPUnit_Framework_TestCase
   public function testHeadersTo()
   {
     $this->mailer->setTo('john@example.com');
-    $this->assertEquals( "To: john@example.com\r\nBcc: john@example.com", $this->mailer->headers() );
+    $this->assertEquals( "To: john@example.com", $this->mailer->headers() );
   }
 
   public function testHeadersFrom()
@@ -79,7 +79,7 @@ class MailerTest extends PHPUnit_Framework_TestCase
   {
     $this->mailer->setTo('john@example.com');
     $this->mailer->setFrom('doe@example.com');
-    $this->assertEquals( "To: john@example.com\r\nFrom: doe@example.com\r\nBcc: john@example.com", $this->mailer->headers() );
+    $this->assertEquals( "To: john@example.com\nFrom: doe@example.com", $this->mailer->headers() );
   }
 
   public function testValid()
