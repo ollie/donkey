@@ -29,8 +29,10 @@ class Router
 
   public function getRoute($path, $method = self::GET)
   {
-    if ( $this->routesTo($path, $method) )
-      return $this->_routes[$method][$path];
+    if ( !$this->routesTo($path, $method) )
+      throw new NoRouteException("Unknown route: {$method} {$path}");
+
+    return $this->_routes[$method][$path];
   }
 
   public function routesTo($path, $method = self::GET)

@@ -21,9 +21,12 @@ class RouterTest extends PHPUnit_Framework_TestCase
     $this->assertFalse( $this->router->routesTo('/some/path') );
   }
 
+  /**
+   * @expectedException App\NoRouteException
+   */
   public function testGetRouteWithNonExistentPath()
   {
-    $this->assertNull( $this->router->getRoute('/some/path') );
+    $this->router->getRoute('/some/path');
   }
 
   public function testRouteGetRoute()
