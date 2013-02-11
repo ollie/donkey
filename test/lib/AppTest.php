@@ -141,6 +141,13 @@ class AppTest extends PHPUnit_Framework_TestCase
     $this->showErrors();
   }
 
+  public function testIsTesting()
+  {
+    $this->app->setTesting();
+    $this->assertTrue( $this->app->isTesting() );
+    $this->showErrors();
+  }
+
   public function testFlash()
   {
     $this->assertEquals( array(), $this->app->flash() );

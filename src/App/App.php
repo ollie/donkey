@@ -64,6 +64,11 @@ class App
     return $this->_env === 'production';
   }
 
+  public function isTesting()
+  {
+    return $this->_env === 'testing';
+  }
+
   public function env()
   {
     return $this->_env;
